@@ -1,0 +1,79 @@
+﻿<ManagementPack ContentReadable="true" SchemaVersion="2.0" OriginalSchemaVersion="1.1" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+  <Manifest>
+    <Identity>
+      <ID>Packt.WindowsComputer.ClassExtension</ID>
+      <Version>1.0.0.1</Version>
+    </Identity>
+    <Name>Packt.WindowsComputer.ClassExtension</Name>
+    <References>
+      <Reference Alias="System">
+        <ID>System.Library</ID>
+        <Version>7.5.8501.0</Version>
+        <PublicKeyToken>31bf3856ad364e35</PublicKeyToken>
+      </Reference>
+      <Reference Alias="Console">
+        <ID>Microsoft.EnterpriseManagement.ServiceManager.UI.Console</ID>
+        <Version>7.5.7487.0</Version>
+        <PublicKeyToken>31bf3856ad364e35</PublicKeyToken>
+      </Reference>
+      <Reference Alias="Alias_83dcbb03_3519_438a_ba9e_1592ff4c4aba">
+        <ID>Microsoft.Windows.Library</ID>
+        <Version>7.5.8501.0</Version>
+        <PublicKeyToken>31bf3856ad364e35</PublicKeyToken>
+      </Reference>
+    </References>
+  </Manifest>
+  <TypeDefinitions>
+    <EntityTypes>
+      <ClassTypes>
+        <ClassType ID="ClassExtension_e3b0a271_16c4_48c9_a6f8_7de0a6356e8b" Accessibility="Public" Abstract="false" Base="Alias_83dcbb03_3519_438a_ba9e_1592ff4c4aba!Microsoft.Windows.Computer" Hosted="false" Singleton="false" Extension="true">
+          <Property ID="RebootInstructions" Type="string" AutoIncrement="false" Key="false" CaseSensitive="false" MaxLength="2000" MinLength="0" Required="false" Scale="0" />
+        </ClassType>
+      </ClassTypes>
+      <RelationshipTypes>
+        <RelationshipType ID="TechnicalResponsible" Accessibility="Public" Abstract="false" Base="System!System.Reference">
+          <Source ID="Source_d0e07c95_5efe_48dd_89aa_0aaf6fe0e2a9" MinCardinality="0" MaxCardinality="2147483647" Type="Alias_83dcbb03_3519_438a_ba9e_1592ff4c4aba!Microsoft.Windows.Computer" />
+          <Target ID="Target_c20395aa_ec2d_4338_93d7_9b7339902221" MinCardinality="0" MaxCardinality="1" Type="System!System.Domain.User" />
+        </RelationshipType>
+      </RelationshipTypes>
+    </EntityTypes>
+  </TypeDefinitions>
+  <Categories>
+    <Category ID="Packt.WindowsComputer.ClassExtension.Category" Value="Console!Microsoft.EnterpriseManagement.ServiceManager.ManagementPack">
+      <ManagementPackName>Packt.WindowsComputer.ClassExtension</ManagementPackName>
+      <ManagementPackVersion>1.0.0.0</ManagementPackVersion>
+    </Category>
+  </Categories>
+  <LanguagePacks>
+    <LanguagePack ID="ENG" IsDefault="true">
+      <DisplayStrings>
+        <DisplayString ElementID="Packt.WindowsComputer.ClassExtension">
+          <Name>Packt.WindowsComputer.ClassExtension</Name>
+        </DisplayString>
+      </DisplayStrings>
+    </LanguagePack>
+    <LanguagePack ID="ENU" IsDefault="false">
+      <DisplayStrings>
+        <DisplayString ElementID="Packt.WindowsComputer.ClassExtension">
+          <Name>Packt.WindowsComputer.ClassExtension</Name>
+        </DisplayString>
+        <DisplayString ElementID="ClassExtension_e3b0a271_16c4_48c9_a6f8_7de0a6356e8b">
+          <Name>Custom Windows Computer Extension</Name>
+          <Description>Extension of class Windows Computer to hold additional information.</Description>
+        </DisplayString>
+        <DisplayString ElementID="ClassExtension_e3b0a271_16c4_48c9_a6f8_7de0a6356e8b" SubElementID="RebootInstructions">
+          <Name>Reboot Instructions</Name>
+        </DisplayString>
+        <DisplayString ElementID="TechnicalResponsible">
+          <Name>Technical Responsible</Name>
+        </DisplayString>
+        <DisplayString ElementID="TechnicalResponsible" SubElementID="Source_d0e07c95_5efe_48dd_89aa_0aaf6fe0e2a9">
+          <Name>Source_d0e07c95_5efe_48dd_89aa_0aaf6fe0e2a9</Name>
+        </DisplayString>
+        <DisplayString ElementID="TechnicalResponsible" SubElementID="Target_c20395aa_ec2d_4338_93d7_9b7339902221">
+          <Name>Target_c20395aa_ec2d_4338_93d7_9b7339902221</Name>
+        </DisplayString>
+      </DisplayStrings>
+    </LanguagePack>
+  </LanguagePacks>
+</ManagementPack>

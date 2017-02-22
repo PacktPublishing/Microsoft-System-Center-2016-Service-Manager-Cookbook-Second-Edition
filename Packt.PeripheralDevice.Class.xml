@@ -1,0 +1,93 @@
+﻿<ManagementPack ContentReadable="true" SchemaVersion="2.0" OriginalSchemaVersion="1.1" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+  <Manifest>
+    <Identity>
+      <ID>Packt.PeripheralDevice.Class</ID>
+      <Version>1.0.0.1</Version>
+    </Identity>
+    <Name>Packt.PeripheralDevice.Class</Name>
+    <References>
+      <Reference Alias="System">
+        <ID>System.Library</ID>
+        <Version>7.5.8501.0</Version>
+        <PublicKeyToken>31bf3856ad364e35</PublicKeyToken>
+      </Reference>
+      <Reference Alias="Console">
+        <ID>Microsoft.EnterpriseManagement.ServiceManager.UI.Console</ID>
+        <Version>7.5.7487.0</Version>
+        <PublicKeyToken>31bf3856ad364e35</PublicKeyToken>
+      </Reference>
+      <Reference Alias="Alias_b8e89dcd_ab3f_44be_82d7_22dbd14285e9">
+        <ID>Microsoft.EnterpriseManagement.ServiceManager.UI.Authoring</ID>
+        <Version>7.5.7487.0</Version>
+        <PublicKeyToken>31bf3856ad364e35</PublicKeyToken>
+      </Reference>
+    </References>
+  </Manifest>
+  <TypeDefinitions>
+    <EntityTypes>
+      <ClassTypes>
+        <ClassType ID="Packt.PeripheralDevice" Accessibility="Public" Abstract="false" Base="System!System.ConfigItem" Hosted="false" Singleton="false" Extension="false">
+          <Property ID="PeripheralDeviceID" Type="string" AutoIncrement="true" Key="true" CaseSensitive="false" MaxLength="256" MinLength="0" Required="true" Scale="0" DefaultValue="PD{0}" />
+          <Property ID="DeviceType" Type="enum" AutoIncrement="false" Key="false" CaseSensitive="false" MaxLength="256" MinLength="0" Required="false" Scale="0" EnumType="PeripheralDeviceTypeList" />
+          <Property ID="DeviceName" Type="string" AutoIncrement="false" Key="false" CaseSensitive="false" MaxLength="256" MinLength="0" Required="false" Scale="0" />
+          <Property ID="Description" Type="string" AutoIncrement="false" Key="false" CaseSensitive="false" MaxLength="4000" MinLength="0" Required="false" Scale="0" />
+          <Property ID="SerialNumber" Type="string" AutoIncrement="false" Key="false" CaseSensitive="false" MaxLength="256" MinLength="0" Required="false" Scale="0" />
+          <Property ID="AssetTag" Type="string" AutoIncrement="false" Key="false" CaseSensitive="false" MaxLength="256" MinLength="0" Required="false" Scale="0" />
+        </ClassType>
+      </ClassTypes>
+      <EnumerationTypes>
+        <EnumerationValue ID="PeripheralDeviceTypeList" Accessibility="Public" />
+      </EnumerationTypes>
+    </EntityTypes>
+  </TypeDefinitions>
+  <Categories>
+    <Category ID="Packt.PeripheralDevice.Class.Category" Value="Console!Microsoft.EnterpriseManagement.ServiceManager.ManagementPack">
+      <ManagementPackName>Packt.PeripheralDevice.Class</ManagementPackName>
+      <ManagementPackVersion>1.0.0.0</ManagementPackVersion>
+    </Category>
+    <Category ID="CategoryId_383f95c2_2aab_48dc_b859_6b59930f8110" Target="PeripheralDeviceTypeList" Value="Alias_b8e89dcd_ab3f_44be_82d7_22dbd14285e9!Microsoft.EnterpriseManagement.ServiceManager.UI.Authoring.EnumerationViewTasks" />
+    <Category ID="CategoryId_1a87e69b_6c74_4783_a3ab_c3c6196eeb9c" Target="PeripheralDeviceTypeList" Value="System!VisibleToUser" />
+  </Categories>
+  <LanguagePacks>
+    <LanguagePack ID="ENG" IsDefault="true">
+      <DisplayStrings>
+        <DisplayString ElementID="Packt.PeripheralDevice.Class">
+          <Name>Packt.PeripheralDevice.Class</Name>
+        </DisplayString>
+      </DisplayStrings>
+    </LanguagePack>
+    <LanguagePack ID="ENU" IsDefault="false">
+      <DisplayStrings>
+        <DisplayString ElementID="Packt.PeripheralDevice.Class">
+          <Name>Packt.PeripheralDevice.Class</Name>
+        </DisplayString>
+        <DisplayString ElementID="Packt.PeripheralDevice">
+          <Name>Peripheral Device</Name>
+          <Description></Description>
+        </DisplayString>
+        <DisplayString ElementID="PeripheralDeviceTypeList">
+          <Name>Peripheral Device Type</Name>
+          <Description></Description>
+        </DisplayString>
+        <DisplayString ElementID="Packt.PeripheralDevice" SubElementID="PeripheralDeviceID">
+          <Name>PeripheralDeviceID</Name>
+        </DisplayString>
+        <DisplayString ElementID="Packt.PeripheralDevice" SubElementID="DeviceType">
+          <Name>DeviceType</Name>
+        </DisplayString>
+        <DisplayString ElementID="Packt.PeripheralDevice" SubElementID="DeviceName">
+          <Name>Device Name</Name>
+        </DisplayString>
+        <DisplayString ElementID="Packt.PeripheralDevice" SubElementID="Description">
+          <Name>Description</Name>
+        </DisplayString>
+        <DisplayString ElementID="Packt.PeripheralDevice" SubElementID="SerialNumber">
+          <Name>Serial Number</Name>
+        </DisplayString>
+        <DisplayString ElementID="Packt.PeripheralDevice" SubElementID="AssetTag">
+          <Name>Asset Tag</Name>
+        </DisplayString>
+      </DisplayStrings>
+    </LanguagePack>
+  </LanguagePacks>
+</ManagementPack>

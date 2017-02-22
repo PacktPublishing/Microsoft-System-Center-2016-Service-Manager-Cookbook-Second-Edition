@@ -1,0 +1,49 @@
+Import-Module SMLets
+	   # Name of the SCSM Management Server
+$smDefaultComputer = "TDSCSM03"
+
+$Roles = Get-SCSMUserRole 
+ForEach ($Role in $Roles) 
+{ 
+    $RoleOutputName = $Role.DisplayName + " (" + $Role.ProfileDisplayName +")"
+    Write-Output "==================================================" 
+    Write-Output $RoleOutputName
+    Write-Output $Role.Description 
+    Write-Output "==================================================" 
+    Write-Output "USERS" 
+    ForEach ($User in $Role.Users) 
+    { 
+        Write-Output " " $User 
+    } 
+    Write-Output " " 
+    Write-Output "VIEWS" 
+    ForEach ($View in $Role.Views) 
+    { 
+        Write-Output " " $View.DisplayName 
+    } 
+    Write-Output " " 
+    Write-Output "OBJECT SCOPES" 
+    ForEach ($Object in $Role.Objects) 
+    { 
+        Write-Output " " $Object.DisplayName 
+    } 
+    Write-Output " " 
+    Write-Output "TEMPLATES" 
+    ForEach ($Template in $Role.Templates) 
+    { 
+        Write-Output " " $Template.DisplayName 
+    }
+    Write-Output " " 
+    Write-Output "CLASSES" 
+    ForEach ($Class in $Role.Classes) 
+    { 
+        Write-Output " " $Class.DisplayName 
+    } 
+    Write-Output " " 
+    Write-Output "CONSOLE TASKS" 
+    ForEach ($CredentialTask in $Role.CredentialTasks) 
+    { 
+        $T = Get-SCSMConsoleTask $CredentialTask.First 
+        Write-Output " " $T.DisplayName 
+    } 
+}

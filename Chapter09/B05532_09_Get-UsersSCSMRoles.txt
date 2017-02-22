@@ -1,0 +1,50 @@
+Param([string]$userName)
+
+# Name of the SCSM Management Server
+$smDefaultComputer = "TDSCSM03"
+
+Import-Module SMLets
+Import-Module ActiveDirectory
+
+If (!$userName)
+    {
+    Write-Host -ForegroundColor Red "Please start the script with a valid username! ... For instance: Get-UsersSCSMRoles.ps1 andreas.baumgarten"
+    Break
+    }
+
+$memberInAdGroups = Get-ADUser -Identity $userName -Properties MemberOf
+$memberInAdGroups = $memberInAdGroups.MemberOf
+
+$scsmRoles = Get-SCSMuserRole
+foreach ($scsmRole in $scsmRoles)
+    {
+    if ($scsmRole.users)
+        {
+        $scsmRoleName = $scsmRole.Displayname
+        if ($scsmRole.users -like "*$userName*")
+            {
+            Write-Host -ForegroundColor Blue "=== SCSM Role: $scsmRoleName ==="
+            Write-Host -ForegroundColor Green "User $userName is direct member of this SCSM user role"
+            }  
+        if ($scsmRole.Users -like "*Domain Users*")
+            {
+            Write-Host -ForegroundColor Blue "=== SCSM Role: $scsmRoleName ==="
+            Write-Host -ForegroundColor Green "User $userName is member of this SCSM user role by AD groupmembership: Domain Users"
+            }
+        if ($scsmRole.Users -like "*Authenticated Users*")
+                    {
+                    Write-Host -ForegroundColor Blue "=== SCSM Role: $scsmRoleName ==="
+                    Write-Host -ForegroundColor Green "User $userName is member of this SCSM user role by AD groupmembership: Authenticated Users"
+                    }
+            foreach ($adGroup in $memberInAdGroups)
+                {
+                $adGroupName = Get-ADGroup -Identity $adGroup
+                $adGroupName = $adGroupName.SamAccountName
+                if ($SCSMrole.Users -like "*$adGroupName*")
+                    {
+                    Write-Host -ForegroundColor Blue "=== SCSM Role: $scsmRoleName ==="
+                    Write-Host -ForegroundColor Green "User $userName is member of this SCSM user role by AD groupmembership: $ADgroupName"
+                    }
+                }
+            }
+    }

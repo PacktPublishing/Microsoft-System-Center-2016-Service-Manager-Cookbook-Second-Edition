@@ -1,0 +1,41 @@
+SELECT * FROM ComputerDimvw
+
+---
+
+SELECT * FROM ComputerDimvw WHERE IsDeleted = 0
+
+---
+
+SELECT ComputerDimKey, * FROM ComputerDimvw WHERE IsDeleted = 0
+
+---
+
+SELECT
+	co.PrincipalName,
+	os.PhysicalMemory
+FROM
+	ComputerDimvw co
+	LEFT OUTER JOIN ComputerHostsOperatingSystemFactvw coHos ON
+		co.ComputerDimKey = coHos.ComputerDimKey
+		AND coHos.DeletedDate IS NULL
+	LEFT OUTER JOIN OperatingSystemDimvw os ON
+		coHos.ComputerHostsOperatingSystem_OperatingSystemDimKey = s.OperatingSystemDimKey
+WHERE
+	co.IsDeleted = 0
+
+---
+
+SELECT Id, Status FROM IncidentDimvw
+
+---
+
+SELECT
+	i.Id,
+	i.Status,
+	s.IncidentStatusValue
+FROM
+	IncidentDimvw i
+	LEFT OUTER JOIN IncidentStatusvw s ON
+		i.Status_IncidentStatusId = s.IncidentStatusId
+WHERE
+	i.IsDeleted = 0

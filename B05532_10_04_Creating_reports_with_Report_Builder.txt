@@ -1,0 +1,22 @@
+SELECT
+  COUNT(DISTINCT IncidentDimvw.Id) AS [Count Distinct_Id]
+  ,DisplayStringDimvw.DisplayName AS [DisplayStringDimvw DisplayName]
+  ,UserDimvw.DisplayName AS [UserDimvw DisplayName]
+FROM
+  IncidentDimvw
+  INNER JOIN WorkItemDimvw
+    ON IncidentDimvw.EntityDimKey = WorkItemDimvw.EntityDimKey
+  LEFT OUTER JOIN WorkItemAffectedUserFactvw
+    ON WorkItemDimvw.WorkItemDimKey = WorkItemAffectedUserFactvw.WorkItemDimKey
+  LEFT OUTER JOIN UserDimvw
+    ON WorkItemAffectedUserFactvw.WorkItemAffectedUser_UserDimKey = UserDimvw.UserDimKey
+  LEFT OUTER JOIN IncidentClassificationvw
+    ON IncidentDimvw.Classification_IncidentClassificationId = IncidentClassificationvw.IncidentClassificationId
+  LEFT OUTER JOIN DisplayStringDimvw
+    ON IncidentClassificationvw.EnumTypeId = DisplayStringDimvw.BaseManagedEntityId
+WHERE
+  WorkItemAffectedUserFactvw.DeletedDate IS NULL
+  AND DisplayStringDimvw.LanguageCode = N'ENU'
+GROUP BY
+  DisplayStringDimvw.DisplayName
+  ,UserDimvw.DisplayName

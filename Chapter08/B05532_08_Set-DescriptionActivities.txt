@@ -1,0 +1,73 @@
+# Import SMlets module
+Import-Module SMlets
+
+#------ Variables ------
+
+# ID of the Service Request
+$id = "CR575"
+
+# Name of the SCSM Management Server
+$smDefaultComputer = "TDSCSM03"
+
+#-----------------------
+
+# Definition of function to find all related activities
+
+function Add-ActivityDescriptionRecursive($activity, $description)
+{
+    # Set internal activity id
+    $activityId = $activity.Displayname
+    # Get activity object
+    $activity = Get-SCSMObject -Class $activityClass -Filter "Displayname -like $activityId*"
+    # Call function "Add-ActivityDescription" to write description of activity
+	Add-ActivityDescription -activity $activity -description $description
+	# Get related child activities
+	$workItemContainsActivityRelationship = Get-SCSMRelationshipClass -Name System.WorkItemContainsActivity$
+	# Get related activity objects
+    $recursiveActivities = Get-SCSMRelatedObject -SMObject $activity -Relationship $workItemContainsActivityRelationship
+    # For each related actvity found
+    foreach($obj in $recursiveActivities)
+	{
+        # Call function "Add-ActivityDescription" to write description of activity
+		Add-ActivityDescriptionRecursive -activity $obj -description $description
+	}
+}
+# Definition of function
+function Add-ActivityDescription($activity, $description)
+{
+	# Exists a description in the Activity?
+    if ($activity.Description)
+    {
+        # Build PropertyHash if Activity Description is not empty
+        $newDescription = $activity.Description + [Environment]::NewLine +  "---------------" + [Environment]::NewLine + $description
+        $propertyHash = @{Description = $newDescription}
+    }
+    else
+    {   # Set PropertyHash if Activity Description is empty
+        $propertyHash = @{Description = $description}
+    }
+	
+    # Update Description of activity
+   $activity | Set-SCSMObject -PropertyHashtable $propertyHash
+}
+
+# Get Activity and Service Request classes
+$parentClass = Get-SCSMClass -Name System.WorkItem.ChangeRequest$
+$activityClass = Get-SCSMClass -Name System.WorkItem.Activity$
+
+# Get relationship between Service Request and all related Activities
+$workItemContainsActivityRelationship = Get-SCSMRelationshipClass -Name System.WorkItemContainsActivity$
+
+# Get configured Service Request and its description
+$parentRequest = Get-SCSMObject -Class $parentClass -Filter "Id = $id"
+$description = $parentRequest.Description
+
+# Get all related Activities of Service Request
+$activities = Get-SCSMRelatedObject -SMObject $parentRequest -Relationship $workItemContainsActivityRelationship
+
+# For each related Activity
+foreach ($activity in $activities)
+    {
+        # Call function "Add-ActivityDescription" to write description of activity
+        Add-ActivityDescriptionRecursive -activity $activity -description $description
+    }
